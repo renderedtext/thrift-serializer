@@ -1,41 +1,82 @@
-# Thrift::Serializer
+# Thrift Serializer
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/thrift/serializer`. To experiment with that code, run `bin/console` for an interactive prompt.
+Encodes hashes to `thrift` messages and decodes `thrift` messages to hashes.
 
-TODO: Delete this and the text above, and describe your gem
-
-## Installation
+# Installation
 
 Add this line to your application's Gemfile:
 
-```ruby
-gem 'thrift-serializer'
+``` ruby
+gem "rt-thrift-serializer", :require => "thrift_serializer"
 ```
 
-And then execute:
+# Encode hashes into Thrift messages
 
-    $ bundle
+``` ruby
+user      = User.new
+user.name = "John Smith"
+user.age  = 42
 
-Or install it yourself as:
+ThriftSerializer.encode(user)
+# => "\v\x00\x01\x00\x00\x00\nJohn Smith\b\x00\x02\x00\x00\x00*\x00"
 
-    $ gem install thrift-serializer
+```
 
-## Usage
+# Decode Thrift messages into hashes
 
-TODO: Write usage instructions here
+``` ruby
+ThriftSerializer.decode(user, User.new)
+# => { :name => "John Smith", :age => 32 }
+```
 
-## Development
+**NOTE:** Make sure that app using `ThriftSerializer` have compiled `.thrift` file
 
-After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+# Model Validation
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+Hashes are validated against corresponding struct defined in `.thrift` file in app that use `ThriftSerializer`
 
-## Contributing
+Let your `.thrift` file have following struct:
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/thrift-serializer. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+``` thrift
+struct User {
+  1: required string name
+  2: required i32 age
+}
+```
 
+Exception is raised in case:
 
-## License
+* Required field is missing
 
-The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+``` ruby
+user      = User.new
+user.name = "John Smith"
+# Required field 'age' is missing
 
+ThriftSerializer.encode(user)
+
+# => raises Thrift::ProtocolException
+```
+
+* If there are any extra fields
+
+``` ruby
+user      = User.new
+user.name = "John Smith"
+user.age  = 42
+user.id   = 101
+
+# => raises NoMethodError
+```
+
+* Invalid struct field type
+
+``` ruby
+user      = User.new
+user.name = "John Smith"
+user.age  = "42"          # `age` is type of `i32`, got `string`
+
+ThriftSerializer.encode(user)
+
+# => raises ThriftSerializerError
+```
