@@ -9,6 +9,7 @@ describe "serializers" do
     binary = ThriftSerializer.encode(user)
     decoded = ThriftSerializer.decode(binary, User.new)
 
-    expect(decoded == user).to rq(true)
+    expect(decoded.name == user.name).to eq(true)
+    expect(decoded.age == user.age).to eq(true)
   end
 end

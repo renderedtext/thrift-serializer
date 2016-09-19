@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'serializer/version'
+require 'thrift_serializer/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "rt-thrift-serializer"
-  spec.version       = Thrift::Serializer::VERSION
+  spec.version       = ThriftSerializer::VERSION
   spec.authors       = ["Rendered Text"]
   spec.email         = ["devops@renderedtext.com"]
 

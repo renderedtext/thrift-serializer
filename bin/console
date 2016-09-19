@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 require "bundler/setup"
-require "serializer"
+require "thrift_serializer"
 
 require "irb"
 IRB.start
