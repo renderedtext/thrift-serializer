@@ -26,12 +26,12 @@ describe "Serialization" do
 end
 
 describe "Model validation" do
-  it "validates hash fileds type during serialization" do
+  it "validates hash fields type during serialization" do
     user      = User.new
     user.name = "John Smith"
     user.age  = "42"
 
-    expect{ThriftSerializer.encode(user)}.to raise_error(ArgumentError)
+    expect{ThriftSerializer.encode(user)}.to raise_error(ThriftSerializerError)
   end
 
   it "validates hash fields" do
