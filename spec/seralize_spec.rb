@@ -1,15 +1,25 @@
 require "spec_helper"
 
-describe "serializers" do
-  it "encodes data" do
+describe "Deserialization" do
+  it "decodes data from binary to thrift model" do
     user      = User.new
     user.name = "John Smith"
     user.age  = 42
 
-    binary = ThriftSerializer.encode(user)
+    binary  = ThriftSerializer.encode(user)
     decoded = ThriftSerializer.decode(binary, User.new)
 
-    expect(decoded.name == user.name).to eq(true)
-    expect(decoded.age == user.age).to eq(true)
+    expect(decoded.name).to eq(user.name)
+    expect(decoded.age).to eq(user.age)
+  end
+end
+
+describe "Serialization" do
+  it "encodes hash to binary" do
+    user      = User.new
+    user.name = "John Smith"
+    user.age  = 42
+
+    binary  = ThriftSerializer.encode(user)
   end
 end
