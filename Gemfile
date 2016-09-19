@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in thrift-serializer.gemspec
+gem "thrift", "~> 0.9.3.0"
+
 gemspec
