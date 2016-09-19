@@ -2,9 +2,6 @@ require "thrift_serializer/version"
 require "thrift"
 
 class ThriftSerializerError < Exception
-  def initialize(msg)
-    super(msg)
-  end
 end
 
 module ThriftSerializer

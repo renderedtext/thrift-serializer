@@ -24,18 +24,3 @@ describe "Serialization" do
     expect(binary).to eq("\v\x00\x01\x00\x00\x00\nJohn Smith\b\x00\x02\x00\x00\x00*\x00")
   end
 end
-
-describe "Model validation" do
-  it "validates hash fields type during serialization" do
-    user      = User.new
-    user.name = "John Smith"
-    user.age  = "42"
-
-    expect{ThriftSerializer.encode(user)}.to raise_error(ThriftSerializerError)
-  end
-
-  it "validates hash fields" do
-    user = User.new
-    expect{user.id = 15}.to raise_error(NoMethodError)
-  end
-end
