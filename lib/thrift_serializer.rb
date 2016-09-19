@@ -1,7 +1,7 @@
 require "thrift_serializer/version"
 require "thrift"
 
-module Serializer
+module ThriftSerializer
 
   # @serializer   = Thrift::Serializer.new
   # @deserializer = Thrift::Deserializer.new

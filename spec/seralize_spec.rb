@@ -6,8 +6,8 @@ describe "serializers" do
     user.name = "John Smith"
     user.age  = 42
 
-    binary = Serializer.encode(user)
-    decoded = Serializer.decode(binary, User.new)
+    binary = ThriftSerializer.encode(user)
+    decoded = ThriftSerializer.decode(binary, User.new)
 
     expect(decoded == user).to rq(true)
   end
