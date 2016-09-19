@@ -1,7 +1,5 @@
 require "serializer/version"
 require "thrift"
-# $:.push("gen-rb")
-# require "models_constants"
 
 module Serializer
 
