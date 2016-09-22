@@ -7,9 +7,7 @@ Encodes hashes to `thrift` messages and decodes `thrift` messages to hashes.
 Add this line to your application's Gemfile:
 
 ``` ruby
-gem "rt-thrift-serializer",
-  :git     => "https://github.com/renderedtext/thrift-serializer",
-  :require => "thrift_serializer"
+gem "rt-thrift-serializer", :github => "renderedtext/thrift-serializer", :require => "thrift_serializer"
 ```
 
 # Encode hashes into Thrift messages
