@@ -1,5 +1,7 @@
 # Thrift Serializer
 
+[![Build Status](https://semaphoreci.com/api/v1/renderedtext/thrift-serializer/branches/master/badge.svg)](https://semaphoreci.com/renderedtext/thrift-serializer)
+
 Encodes hashes to `thrift` messages and decodes `thrift` messages to hashes.
 
 # Installation
